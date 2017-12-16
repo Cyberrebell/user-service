@@ -1,0 +1,134 @@
+swagger: '2.0'
+info:
+  title: user service api
+  description: Api for user management and authentication
+  version: '0.0.1'
+host:
+basePath: '/'
+tags:
+- name: user
+  description: Operations directly related to users
+- name: authentication
+  description: Everything related to authentication
+schemes:
+- "https"
+paths:
+  /user:
+    post:
+      tags:
+        - user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The user to create
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+  /user/{user-id}:
+    get:
+      tags:
+        - user
+      produces:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/user-id'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+    put:
+      tags:
+        - user
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/user-id'
+      - in: body
+        name: body
+        description: The user to update
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/User'
+    delete:
+      tags:
+        - user
+      produces:
+      - application/json
+      parameters:
+      - $ref: '#/parameters/user-id'
+      responses:
+        200:
+          description: OK
+  /authentication:
+    post:
+      tags:
+        - authentication
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: The user to update
+        required: true
+        schema:
+          $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: OK
+    delete:
+      tags:
+        - authentication
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        200:
+          description: OK
+parameters:
+  user-id:
+    in: path
+    name: user-id
+    description: Id of the user
+    required: true
+    type: string
+definitions:
+  Login:
+    type: object
+    properties:
+      user:
+        type: string
+        example: User123|user123@mail.com
+      password:
+        type: string
+        example: password123
+  User:
+    type: object
+    properties:
+      email:
+        type: string
+      first-name:
+        type: string
+      last-name:
+        type: string
+      birthday:
+        type: string

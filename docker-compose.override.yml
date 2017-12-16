@@ -1,0 +1,8 @@
+version: '2'
+services:
+  user-nginx:
+    ports:
+      - '8443:443'
+  arangodb:
+    ports:
+      - '8529:8529'
