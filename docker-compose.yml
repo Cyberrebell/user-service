@@ -12,6 +12,6 @@ services:
     volumes:
       - .:/var/www/
   arangodb:
-    image: arangodb/arangodb
+    image: arangodb/arangodb:latest
     environment:
-      - ARANGO_ROOT_PASSWORD=test
+      - ARANGO_ROOT_PASSWORD=root

@@ -124,11 +124,20 @@ definitions:
   User:
     type: object
     properties:
+      user:
+        type: string
+        example: User123
       email:
         type: string
+        example: user123@mail.com
+      password:
+        $ref: '#/definitions/Login/properties/password'
       first-name:
         type: string
+        example: Luke
       last-name:
         type: string
+        example: Skywalker
       birthday:
         type: string
+        example: '1990-12-31'

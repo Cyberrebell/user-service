@@ -2,15 +2,14 @@
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use User\Controllers\AuthenticationController;
+use User\Controllers\HealthController;
 use User\Controllers\UserController;
 
 $app->get('/', function () {
     return RedirectResponse::create('/docs/');
 });
 
-$app->get('/health', function () use ($app) {
-    return 'I am alive';
-});
+$app->get('/health', HealthController::class . '::getAction');
 
 
 $app->post('/user', UserController::class . '::postAction');

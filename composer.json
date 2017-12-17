@@ -5,12 +5,17 @@
         "php": ">=7.1",
         "silex/silex": "^2.2",
         "monolog/monolog": "^1.23",
-        "triagens/arangodb": "^3.2"
+        "triagens/arangodb": "^3.2",
+        "symfony/console": "^4.0",
+        "polarising/bcrypt": "^1.0"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "User\\": "src/"
         }
+    },
+    "require-dev": {
+        "cyberrebell/api-mapping-layer-gen": "0.0.9"
     }
 }
