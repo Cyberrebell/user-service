@@ -6,6 +6,7 @@ use Silex\Provider\HttpFragmentServiceProvider;
 use Silex\Provider\ServiceControllerServiceProvider;
 use User\Service\ArangoDbServiceProvider;
 use User\Service\Health\HealerServiceProvider;
+use User\Service\User\AuthenticationStorageServiceProvider;
 use User\Service\User\UserStorageServiceProvider;
 
 $app = new Application();
@@ -18,5 +19,6 @@ $app->register(new HttpFragmentServiceProvider());
 $app->register(new ArangoDbServiceProvider());
 $app->register(new HealerServiceProvider());
 $app->register(new UserStorageServiceProvider());
+$app->register(new AuthenticationStorageServiceProvider());
 
 return $app;
