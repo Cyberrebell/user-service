@@ -36,6 +36,28 @@ class AuthenticationController
             $response->headers->setCookie(new Cookie(self::SESSION_COOKIE_NAME, $token));
         }
 
+        $response->setData([
+            self::SESSION_COOKIE_NAME => $token
+        ]);
+
+        return $response;
+    }
+
+    public function getAction(Application $app, Request $request)
+    {
+        $response = new JsonResponse();
+
+        $token = $request->get('token');
+        if ($token === null) {
+            $token = $request->cookies->get(self::SESSION_COOKIE_NAME);
+        }
+        if (!empty($token)) {
+            /* @var $authenticationStorage AuthenticationStorage */
+            $authenticationStorage = $app['authentication.storage'];
+            $authentication = $authenticationStorage->getUserData($token);
+            $response->setData($authentication->toArray());
+        }
+
         return $response;
     }
 
@@ -43,12 +65,15 @@ class AuthenticationController
     {
         $response = new JsonResponse();
 
-        $token = $request->cookies->get(self::SESSION_COOKIE_NAME);
+        $token = $request->get('token');
+        if ($token === null) {
+            $token = $request->cookies->get(self::SESSION_COOKIE_NAME);
+            $response->headers->clearCookie(self::SESSION_COOKIE_NAME);
+        }
         if (!empty($token)) {
             /* @var $authenticationStorage AuthenticationStorage */
             $authenticationStorage = $app['authentication.storage'];
             $authenticationStorage->unauthenticate($token);
-            $response->headers->clearCookie(self::SESSION_COOKIE_NAME);
         }
 
         return $response;

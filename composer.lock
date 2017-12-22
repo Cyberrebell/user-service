@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3f600a4c1b8045661a6afd0f4046fef8",
+    "content-hash": "dd1b7e560f211011d4f5970e6a31f23d",
     "packages": [
         {
             "name": "monolog/monolog",
@@ -994,16 +994,16 @@
     "packages-dev": [
         {
             "name": "cyberrebell/api-mapping-layer-gen",
-            "version": "0.0.9",
+            "version": "0.0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Cyberrebell/api-mapping-layer-gen.git",
-                "reference": "a77145860df83e7ac31c0d6980fdeacff250dcb1"
+                "reference": "fb991c4a326f450c1fbc66d1f227404e78f87b9d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Cyberrebell/api-mapping-layer-gen/zipball/a77145860df83e7ac31c0d6980fdeacff250dcb1",
-                "reference": "a77145860df83e7ac31c0d6980fdeacff250dcb1",
+                "url": "https://api.github.com/repos/Cyberrebell/api-mapping-layer-gen/zipball/fb991c4a326f450c1fbc66d1f227404e78f87b9d",
+                "reference": "fb991c4a326f450c1fbc66d1f227404e78f87b9d",
                 "shasum": ""
             },
             "require": {
@@ -1025,7 +1025,7 @@
                 "MIT"
             ],
             "description": "The library to generate the mapping layer for your API",
-            "time": "2017-12-17T11:06:03+00:00"
+            "time": "2017-12-21T13:05:37+00:00"
         },
         {
             "name": "symfony/yaml",

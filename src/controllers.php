@@ -21,4 +21,5 @@ $app->mount('/user', function ($user) {
 
 
 $app->post('/authentication', AuthenticationController::class . '::postAction');
+$app->get('/authentication', AuthenticationController::class . '::getAction');
 $app->delete('/authentication', AuthenticationController::class . '::deleteAction');

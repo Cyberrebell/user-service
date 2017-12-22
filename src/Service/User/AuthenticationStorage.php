@@ -6,19 +6,24 @@ use ArangoDBClient\Connection;
 use ArangoDBClient\Document;
 use ArangoDBClient\DocumentHandler;
 use ArangoDBClient\Edge;
+use ArangoDBClient\EdgeHandler;
 use ArangoDBClient\Statement;
 use Bcrypt\Bcrypt;
+use User\Api\Entities\Authentication;
 use User\Api\Entities\Login;
+use User\Api\Entities\User;
 
 class AuthenticationStorage
 {
     protected $connection;
     protected $documentHandler;
+    protected $edgeHandler;
 
-    public function __construct(Connection $connection, DocumentHandler $documentHandler)
+    public function __construct(Connection $connection, DocumentHandler $documentHandler, EdgeHandler $edgeHandler)
     {
         $this->connection = $connection;
         $this->documentHandler = $documentHandler;
+        $this->edgeHandler = $edgeHandler;
     }
 
     public function authenticate(Login $login, string $ip, string $userAgent) : string
@@ -30,17 +35,44 @@ class AuthenticationStorage
         $statement->setQuery('for u in user filter LOWER(u.user) == LOWER(@user) || LOWER(u.email) == LOWER(@user) return u');
         $statement->bind('user', $login->getUser());
         $users = $statement->execute();
+        /* @var $user Document */
         foreach ($users as $user) {
             if ($this->verifyPassword($login->getPassword(), $user->password)) {
                 $authentication = new Edge();
-                $authentication->setFrom($identityId);
-                $authentication->setTo($user->getId());
-                $this->documentHandler->save('authentication', $authentication);
+                $this->edgeHandler->saveEdge('authentication', $identityId, $user->getHandle(), $authentication);
                 break;
             }
         }
 
         return $identity->token;
+    }
+
+    public function getUserData(string $token) : ?Authentication
+    {
+        $statement = new Statement($this->connection, []);
+        $statement->setQuery('for i in identity filter i.token == @token return i');
+        $statement->bind('token', $token);
+        $identities = $statement->execute();
+        /* @var $identity Document */
+        $identity = reset($identities->getAll());
+
+        $statement = new Statement($this->connection, []);
+        $statement->setQuery(
+            'for i in identity filter i._id == @identity' .
+            ' for a in authentication filter a._from == i._id' .
+            ' for u in user filter u._id == a._to return u'
+        );
+        $statement->bind('identity', $identity->getId());
+        $users = $statement->execute();
+        /* @var $user Document */
+        $user = reset($users->getAll());
+
+        $userEntity = new User($user->getAll());
+        $userEntity->setPassword(null);
+        $authentication = new Authentication($identity->getAll());
+        $authentication->setUser($userEntity);
+
+        return $authentication;
     }
 
     public function unauthenticate(string $token)
@@ -86,7 +118,7 @@ class AuthenticationStorage
         $identity = new Document();
         $identity->token = bin2hex(openssl_random_pseudo_bytes(32));
         $identity->ip = $ip;
-        $identity->userAgent = $userAgent;
+        $identity->set('user-agent', $userAgent);
         return $identity;
     }
 }

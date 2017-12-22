@@ -5,6 +5,7 @@ namespace User\Service;
 use ArangoDBClient\CollectionHandler;
 use ArangoDBClient\Connection;
 use ArangoDBClient\DocumentHandler;
+use ArangoDBClient\EdgeHandler;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -20,6 +21,9 @@ class ArangoDbServiceProvider implements ServiceProviderInterface
         };
         $app['arangodb.document'] = function () use ($app) {
             return new DocumentHandler($app['arangodb.connection']);
+        };
+        $app['arangodb.edge'] = function () use ($app) {
+            return new EdgeHandler($app['arangodb.connection']);
         };
     }
 }

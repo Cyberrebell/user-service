@@ -36,6 +36,7 @@ class UserStorage
     {
         $userDoc = $this->documentHandler->getById('user', $userId);
         $user = new User($userDoc->getAll());
+        $user->setId($userDoc->getKey());
         $user->setPassword(null);
         return $user;
     }

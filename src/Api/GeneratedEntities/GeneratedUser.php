@@ -8,6 +8,11 @@ abstract class GeneratedUser extends AbstractGeneratedEntity
     /**
      * @var null|string
      */
+    protected $id = null;
+
+    /**
+     * @var null|string
+     */
     protected $user = null;
 
     /**
@@ -34,6 +39,22 @@ abstract class GeneratedUser extends AbstractGeneratedEntity
      * @var null|string
      */
     protected $birthday = null;
+
+    /**
+     * @param null|string $id
+     */
+    public function setId(?string $id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getId() : ?string
+    {
+        return $this->id;
+    }
 
     /**
      * @param null|string $user
@@ -136,6 +157,8 @@ abstract class GeneratedUser extends AbstractGeneratedEntity
      */
     public function populate(array $data)
     {
+        $this->setId($data['id'] ?? null);
+
         $this->setUser($data['user'] ?? null);
 
         $this->setEmail($data['email'] ?? null);
@@ -156,6 +179,7 @@ abstract class GeneratedUser extends AbstractGeneratedEntity
     {
         return array_filter(
             [
+                'id' => $this->getId(),
                 'user' => $this->getUser(),
                 'email' => $this->getEmail(),
                 'password' => $this->getPassword(),

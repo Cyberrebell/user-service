@@ -81,13 +81,6 @@ paths:
       responses:
         200:
           description: OK
-    delete:
-      tags:
-      - authentication
-      responses:
-        200:
-          description: OK
-  /authentication/{token}:
     get:
       tags:
         - authentication
@@ -99,7 +92,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/Authentication'
+    delete:
+      tags:
+      - authentication
+      responses:
+        200:
+          description: OK
 components:
   parameters:
     user-id:
@@ -111,7 +110,7 @@ components:
         type: string
         example: 45497
     token:
-      in: path
+      in: query
       name: token
       description: Identifier token
       required: true
@@ -119,6 +118,17 @@ components:
         type: string
         example: ag983j49a8jgf9erjg9e485
   schemas:
+    Authentication:
+      type: object
+      properties:
+        ip:
+          type: string
+          example: 192.168.0.1
+        user-agent:
+          type: string
+          example: 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36'
+        user:
+          $ref: '#/components/schemas/User'
     Login:
       type: object
       properties:

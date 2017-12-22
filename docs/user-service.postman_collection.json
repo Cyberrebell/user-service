@@ -13,11 +13,51 @@
 			"item": [
 				{
 					"name": "/user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var userLink = jsonData._links.created;",
+									"var userId = userLink.substring(userLink.lastIndexOf('/') + 1);",
+									"postman.setEnvironmentVariable('user-id', userId);"
+								]
+							}
+						}
+					],
 					"request": {
-						"url": "{{USER_SERVICE}}/user",
+						"url": {
+							"raw": "{{USER_SERVICE}}/user?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"user"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "POST",
-						"header": [],
-						"body": {},
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"User123\",\n  \"email\": \"user123@mail.com\",\n  \"password\": \"password123\",\n  \"first-name\": \"Luke\",\n  \"last-name\": \"Skywalker\",\n  \"birthday\": \"1990-12-31\"\n}"
+						},
 						"description": ""
 					},
 					"response": []
@@ -25,8 +65,107 @@
 				{
 					"name": "/user/{user-id}",
 					"request": {
-						"url": "{{USER_SERVICE}}/user/1",
+						"url": {
+							"raw": "{{USER_SERVICE}}/user/{{user-id}}?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"user",
+								"{{user-id}}"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"var userLink = jsonData._links.updated;",
+									"var userId = userLink.substring(userLink.lastIndexOf('/') + 1);",
+									"postman.setEnvironmentVariable('user-id', userId);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/user/{{user-id}}?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"user",
+								"{{user-id}}"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"User123\",\n  \"email\": \"user123@mail.com\",\n  \"password\": \"password1234\",\n  \"first-name\": \"Lea\",\n  \"last-name\": \"Skywalker\",\n  \"birthday\": \"1990-12-31\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/user/{user-id}",
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/user/{{user-id}}?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"user",
+								"{{user-id}}"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "DELETE",
 						"header": [],
 						"body": {},
 						"description": ""
@@ -39,6 +178,55 @@
 			"name": "authentication",
 			"description": "",
 			"item": [
+				{
+					"name": "/authentication",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable('AUTH_TOKEN', jsonData.AUTH_TOKEN);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/authentication?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"authentication"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"User123\",\n  \"password\": \"password123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
 				{
 					"name": "/authentication",
 					"request": {
@@ -60,9 +248,141 @@
 							],
 							"variable": []
 						},
-						"method": "POST",
-						"header": [],
-						"body": {},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/authentication?token=",
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/authentication?token={{AUTH_TOKEN}}&XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"authentication"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/authentication",
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/authentication?XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"authentication"
+							],
+							"query": [
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"User123\",\n  \"password\": \"password123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "/authentication?token=",
+					"request": {
+						"url": {
+							"raw": "{{USER_SERVICE}}/authentication?token={{AUTH_TOKEN}}&XDEBUG_SESSION_START=1",
+							"host": [
+								"{{USER_SERVICE}}"
+							],
+							"path": [
+								"authentication"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "{{AUTH_TOKEN}}",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "XDEBUG_SESSION_START",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": \"User123\",\n  \"password\": \"password123\"\n}"
+						},
 						"description": ""
 					},
 					"response": []
