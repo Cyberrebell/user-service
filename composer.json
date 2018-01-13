@@ -16,6 +16,6 @@
         }
     },
     "require-dev": {
-        "cyberrebell/api-mapping-layer-gen": "^0.0.10"
+        "cyberrebell/api-mapping-layer-gen": "^0.0.12"
     }
 }
