@@ -1,8 +1,11 @@
-version: '2'
+version: '2.1'
 services:
   user-nginx:
+    depends_on:
+    - user-php
     ports:
-      - '8443:443'
+      - '80:80'
+      - '443:443'
   arangodb:
     ports:
       - '8529:8529'

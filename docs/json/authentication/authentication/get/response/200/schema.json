@@ -1,0 +1,66 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "ip": {
+            "type": "string",
+            "examples": [
+                "192.168.0.1"
+            ]
+        },
+        "user-agent": {
+            "type": "string",
+            "examples": [
+                "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.84 Safari/537.36"
+            ]
+        },
+        "user": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "examples": [
+                        45497
+                    ]
+                },
+                "user": {
+                    "type": "string",
+                    "examples": [
+                        "User123"
+                    ],
+                    "description": "The unique username"
+                },
+                "email": {
+                    "type": "string",
+                    "examples": [
+                        "user123@mail.com"
+                    ]
+                },
+                "password": {
+                    "type": "string",
+                    "examples": [
+                        "password123"
+                    ]
+                },
+                "first-name": {
+                    "type": "string",
+                    "examples": [
+                        "Luke"
+                    ]
+                },
+                "last-name": {
+                    "type": "string",
+                    "examples": [
+                        "Skywalker"
+                    ]
+                },
+                "birthday": {
+                    "type": "string",
+                    "examples": [
+                        "1990-12-31"
+                    ]
+                }
+            }
+        }
+    }
+}

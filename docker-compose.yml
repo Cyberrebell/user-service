@@ -1,4 +1,4 @@
-version: '2'
+version: '2.1'
 services:
   user-nginx:
     image: user-nginx
@@ -12,6 +12,6 @@ services:
     volumes:
       - .:/var/www/
   arangodb:
-    image: arangodb/arangodb:latest
+    image: arangodb/arangodb
     environment:
       - ARANGO_ROOT_PASSWORD=root

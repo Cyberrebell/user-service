@@ -1,0 +1,12 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "AUTH_TOKEN": {
+            "type": "string",
+            "examples": [
+                "5fb224665c43d395ce6ccf31cc58d4aa714cf04f748b3cd00c1c5708816c600a"
+            ]
+        }
+    }
+}

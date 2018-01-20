@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "user": {
+            "type": "string",
+            "examples": [
+                "User123|user123@mail.com"
+            ]
+        },
+        "password": {
+            "type": "string",
+            "examples": [
+                "password123"
+            ]
+        }
+    }
+}

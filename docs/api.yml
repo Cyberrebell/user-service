@@ -4,7 +4,9 @@ info:
   description: Api for user management and authentication
   version: '0.0.1'
 servers:
-- url: https://127.0.0.1:8443/
+- url: http://127.0.0.1/
+  description: 'Development docker-compose'
+- url: https://127.0.0.1/
   description: 'Development docker-compose'
 tags:
 - name: user
@@ -154,6 +156,7 @@ components:
           example: 45497
         user:
           type: string
+          description: The unique username
           example: User123
         email:
           type: string
